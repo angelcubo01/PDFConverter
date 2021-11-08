@@ -1,0 +1,43 @@
+﻿<Window x:Class="PDFConverter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PDFConverter"
+        mc:Ignorable="d"
+        Title="PDF Converter" Height="450" Width="1000" Icon="pdfConvertor-icon.png"  Closed="Window_Closed">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Este programa tiene la función de unir varias dipositivas (dos por página) en un archivo"></TextBlock>
+        <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Click="Ayuda_Click">Ayuda</Button>
+        <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">Archivos a unir:</TextBlock>
+        <Button Grid.Row="1" Grid.Column="1" Name="origenBtn" Click="origenbtn_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">Seleciona los archivos a unir</Button>
+        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10">Archivo final: </TextBlock>
+        <Button Grid.Row="2" Grid.Column="1" Name="destinoBtn" Click="destinobtn_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">Seleciona el destino del archivo</Button>
+        <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Header="Opciones">
+            <StackPanel>
+                <RadioButton Name="unirTemp" IsChecked="True" Checked="unirTemp_Checked">Abrir archivo (Selecionar esta opción si se quiere imprimir dos diapositivas por página)</RadioButton>
+                <RadioButton Name="unirDefinitivo"  Checked="unirDefinitivo_Checked">Guardar archivo fusionado</RadioButton>
+            </StackPanel>
+        </GroupBox>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="unirbtn" Click="unirbtn_Click"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30">Fusionar PDFS</Button>
+        <ScrollViewer Grid.Row="5" Grid.ColumnSpan="2" Margin="5"  Background="DarkGray">
+            <StackPanel Name="err">
+                
+                <TextBlock HorizontalAlignment="Center" Text="Diseñado por Ángel Picado - v.1.2 - (C) 2021" FontFamily="Consolas"></TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
