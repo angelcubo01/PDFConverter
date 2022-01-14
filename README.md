@@ -1,4 +1,4 @@
-# PDFConvertor ![version](https://img.shields.io/badge/version-1.2.0.4-blue)
+# PDFConvertor  ![problemas](https://img.shields.io/badge/atenci%C3%B3n-errores%20en%20el%20desarrollo%20por%20solucionar-red)  ![aviso](https://img.shields.io/badge/version-obsoleta-orange)
 
 _Este es un pequeño proyecto para una aplicación de escritorio cuya función es unir pdfs de manera rápida sin necesitar conexión a Internet_
 
