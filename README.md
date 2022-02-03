@@ -1,6 +1,5 @@
-# PDFConvertor  ![problemas](https://img.shields.io/badge/atenci%C3%B3n-errores%20en%20el%20desarrollo%20por%20solucionar-red)  ![aviso](https://img.shields.io/badge/version-obsoleta-orange)
-
-_Este es un pequeño proyecto para una aplicación de escritorio cuya función es unir pdfs de manera rápida sin necesitar conexión a Internet_
+# PDFTools 
+_Este es un pequeño proyecto para una aplicación de escritorio cuya función proporcionar herramientas de manera rápida sin necesitar conexión a Internet_
 
 ## Finalidad del proyecto 🚀
 
@@ -15,14 +14,14 @@ _Para instalar este programa necesitas tener instalado al menos:_
 
 ### Instalación 🔧
 
-Para instalar este programa una vez cumplidos los requisitos hay que acceder a la web de descargas  ([descargas.angelpicado.me](https://descargas.angelpicado.me/windows/pdfconvertor.html))
+Para instalar este programa una vez cumplidos los requisitos hay que acceder a la web de descargas  ([descargas.angelpicado.me](https://descargas.angelpicado.me/windows/pdfTools.html))
 
 ## Construido con 🛠️
 
 _Estas son las herramientas usadas para el desarrollo_
 
 * .NET Framework 4.7.2 - El framework web usado
-* [claseUnirPDF](http://jbautistam.com/Articulos/Utilidades/Combinar-PDF.htm) - Clase que une los archivos
+* PDFSharp.net
 
 ## Autores ✒️
 
