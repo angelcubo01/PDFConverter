@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PDFTools"
         mc:Ignorable="d"
-        Title="PDFTools" Height="450" Width="800" Closed="Window_Closed" Icon="pdfTools-icon.png" >
+        Title="PDFTools" Height="450" Width="800" Icon="pdfTools-icon.png" >
     <Grid>
         <TabControl TabStripPlacement="Top">
             <TabItem Header="Unir PDFs">
@@ -17,7 +17,7 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Button Name="Btn_agregarUnir" Margin="10" Content="Agregar archivos" Grid.Row="0" Click="Btn_agregarUnir_Click"></Button>
-                    <ListView Name="ListaUnir" Grid.Row="1" Margin="10" AllowDrop="True" MouseDown="ListaUnir_MouseDown" DragOver="ListaUnir_DragOver" DragLeave="ListaUnir_DragLeave">
+                    <ListView Name="ListaUnir" Grid.Row="1" Margin="10"   >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Ruta archivo" Width="690" DisplayMemberBinding="{Binding Ruta}"></GridViewColumn>
@@ -32,24 +32,62 @@
                         </ListView.View>
                     </ListView>
                     <GroupBox Header="Opciones" Margin="10" Grid.Row="2">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="BorrarTodoUnir" Margin="5" Content="Borrar Todo" Click="BorrarTodoUnir_Click" Width="80"></Button>
-                            <StackPanel Orientation="Vertical" Margin="30,0">
-                                <RadioButton Content="Guardar archivo" Name="GuardarUnir" IsChecked="True"></RadioButton>
-                                <RadioButton Content="Abrir archivo" Name="AbrirUnir"></RadioButton>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Name="BorrarTodoUnir" Margin="5" Content="Borrar Todo" Click="BorrarTodoUnir_Click" Width="80"></Button>
+                                <StackPanel Orientation="Vertical" Margin="30,0">
+                                    <RadioButton Content="Guardar archivo" Name="GuardarUnir" IsChecked="True"></RadioButton>
+                                    <RadioButton Content="No guardar archivo" Name="AbrirUnir"></RadioButton>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel  Margin="15">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Content="Incluir portada"  Name="PortadaUnir" Checked="PortadaUnir_Checked" Unchecked="PortadaUnir_Checked"></CheckBox>
+                                    <Button Content="Añadir Portada" Margin="100, 0" Width="100" Name="Btn_PortadaUnir" IsEnabled="False" Click="Btn_PortadaUnir_Click"></Button>
+                                    <TextBlock Name="PortadaUnirNombre" Text="Ninguna portada selecionada" Opacity="0.5"></TextBlock>
+                                </StackPanel>
+                                
+                                <CheckBox Name="DiapositivasUnir" Content="Dos diapositivas por página"></CheckBox>
                             </StackPanel>
                         </StackPanel>
+                        
                     </GroupBox>
                     <Button Name="Btn_crearUnir" Margin="10" Content="Unir archivos" Grid.Row="3" Click="Btn_crearUnir_Click"></Button>
                 </Grid>
             </TabItem>
+            <TabItem Header="Dos diapositivas por página">
+                <Grid> 
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Name="Btn_agregar2DP" Margin="10" Content="Agregar archivo" Grid.Row="0" Click="Btn_agregar2DP_Click"></Button>
+                    <GroupBox Header="Opciones" Margin="10" Grid.Row="2">
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                            <StackPanel Orientation="Vertical" Margin="30,0">
+                                <RadioButton Content="Guardar archivo" Name="Guardar2DP" IsChecked="True" ></RadioButton>
+                                <RadioButton Content="No guardar archivo" Name="Abrir2DP"></RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <TextBlock Text="No hay ningún archivo selecionado" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" Name="Nombre2DP" Grid.Row="1"></TextBlock>
+                    <Button Name="Btn_guardar2DP" Margin="10" Content="Guardar archivo" Grid.Row="3" Click="Btn_guardar2DP_Click"></Button>
+                </Grid>
+                
+            </TabItem>
             <TabItem Header="Ayuda">
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Margin="10" HorizontalAlignment="Center" FontSize="15" >Funcionalidades </TextBlock>
-                    <TextBlock Margin="15"  HorizontalAlignment="Center" >UNIR PDFS --> Se suben los archivos y puedes guardarlo en local o visualizarlo en tu navegador de Internet</TextBlock>
-                    <TextBlock Margin="5"  HorizontalAlignment="Center" >PROXIMAMENTE MÁS FUNCIONALIDADES</TextBlock>
+                    <TextBlock Margin="15,5"  HorizontalAlignment="Center" >UNIR PDFS --> Se suben los archivos y puedes guardarlo en local o visualizarlo temporalmente</TextBlock>
+                    <TextBlock  HorizontalAlignment="Center" >DOS DIAPOSITIVAS POR PÁGINA --> Permite unir dos diapositivas en una página</TextBlock>
+                    <TextBlock Margin="10"  HorizontalAlignment="Center" >PROXIMAMENTE MÁS FUNCIONALIDADES</TextBlock>
                     <TextBlock Margin="0,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" >Para más información: angelpicadocuadrado@gmail.com</TextBlock>
                     <TextBlock Margin="5"  HorizontalAlignment="Center" >https://descargas.angelpicado.tk</TextBlock>
+                    <TextBlock  HorizontalAlignment="Center" >Manual de uso completo proximamente</TextBlock>
                     <TextBlock Margin="0,30,0,0"  HorizontalAlignment="Center" >Ángel Picado Cuadrado | 2022 </TextBlock>
                 </StackPanel>
                 

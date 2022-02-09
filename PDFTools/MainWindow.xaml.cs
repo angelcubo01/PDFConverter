@@ -1,25 +1,7 @@
-﻿using Microsoft.Win32;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
-using System;
+﻿using PdfSharp.Pdf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using System.IO;
-
-
 
 namespace PDFTools
 {
@@ -29,36 +11,34 @@ namespace PDFTools
     public partial class MainWindow : Window
     {
         private ObservableCollection<Archivo> listaArchivos;
+        private Archivo archivoUnico;
+        public string[] portada;
         public MainWindow()
         {
             InitializeComponent();
             listaArchivos = new ObservableCollection<Archivo>();
             ListaUnir.ItemsSource = listaArchivos;
-            
+
         }
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/pdfConverterTemp.pdf"))
-            {
-                File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/pdfConverterTemp.pdf");
-            }
-        }
+
+        /// <summary>
+        ///         UNIR DIAPOSITIVAS TAG
+        /// </summary>
+
 
         private void Btn_agregarUnir_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = true;
-            openFileDialog.Filter = "Pdf Files|*.pdf";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            openFileDialog.ShowDialog();
-            foreach (string file in openFileDialog.FileNames)
+            string[] archivos;
+            UtilsUnir unir = new UtilsUnir();
+            archivos = unir.CargarArchivos(true);
+            foreach (string file in archivos)
             {
-                listaArchivos.Add(new Archivo(file,false));
+                listaArchivos.Add(new Archivo(file, false));
             }
         }
         private void BorrarUnir_Checked(object sender, RoutedEventArgs e)
-        { 
-            for (int i = 0; i<listaArchivos.Count; i++)
+        {
+            for (int i = 0; i < listaArchivos.Count; i++)
             {
                 if (listaArchivos[i].Borrar == true)
                 {
@@ -72,75 +52,125 @@ namespace PDFTools
         }
 
 
-        private void ListaUnir_DragOver(object sender, DragEventArgs e)
-        {
-            
-        }
-
-        private void ListaUnir_DragLeave(object sender, DragEventArgs e)
-        {
-
-        }
-
-
-        
-
-        private void ListaUnir_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
         private void Btn_crearUnir_Click(object sender, RoutedEventArgs e)
         {
+            UtilsUnir unir = new UtilsUnir();
+            string ruta_archTemp;
             List<string> rutas = new List<string>();
+            rutas.Clear();
+
             foreach (Archivo arch in listaArchivos)
             {
                 rutas.Add(arch.Ruta);
             }
-            PdfDocument outputDocument = new PdfDocument();
-            foreach (string file in rutas)
+            if (rutas.Count == 0)
             {
-                // Open the document to import pages from it.
-                PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import);
 
-                // Iterate pages
-                int count = inputDocument.PageCount;
-                for (int idx = 0; idx < count; idx++)
+                MessageBox.Show("No hay ningún archivo que unir", "ERROR!!",
+                                 MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            MessageBox.Show("Este proceso podría tardar varios segundos, por favor se paciente", "PDFTools",
+                                  MessageBoxButton.OK, MessageBoxImage.Information);
+            PdfDocument outputDocument = new PdfDocument();
+            outputDocument = unir.UnirPDF(rutas);
+            ruta_archTemp = unir.GuardarArchivo(false, false, outputDocument);
+            if ((bool)DiapositivasUnir.IsChecked)
+            {
+                outputDocument = unir.DosDiapositivasEnUna(ruta_archTemp);
+                ruta_archTemp = unir.GuardarArchivo(false, false, outputDocument);
+            }
+            if ((bool)PortadaUnir.IsChecked)
+            {
+                if (portada != null)
                 {
-                    // Get the page from the external document...
-                    PdfPage page = inputDocument.Pages[idx];
-                    // ...and add it to the output document.
-                    outputDocument.AddPage(page);
+                    rutas.Clear();
+                    rutas.Add(portada[0]);
+                    rutas.Add(ruta_archTemp);
+                    outputDocument = unir.UnirPDF(rutas);
                 }
             }
             if (GuardarUnir.IsChecked == true)
             {
-
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.FileName = "ArchivoFusionado.pdf";
-                saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                saveFileDialog.Filter = "Pdf Files|*.pdf";
-                if (saveFileDialog.ShowDialog() == true)
-                {
-                    outputDocument.Save(saveFileDialog.FileName);
-                }
+                unir.GuardarArchivo(true, true, outputDocument);
             }
             else
             {
+                unir.GuardarArchivo(false, true, outputDocument);
+            }
+            listaArchivos.Clear();
+            PortadaUnir.IsChecked = false;
+            DiapositivasUnir.IsChecked = false;
+        }
 
-                string archivoSalida=Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+ System.IO.Path.DirectorySeparatorChar+"pdfConverterTemp.pdf";
-                outputDocument.Save(archivoSalida);
-                try
-                {
-                    System.Diagnostics.Process.Start("chrome.exe", archivoSalida);
-                }
-                catch
-                {
-                    System.Diagnostics.Process.Start("firefox.exe", archivoSalida);
-                }
+        private void Btn_PortadaUnir_Click(object sender, RoutedEventArgs e)
+        {
+            UtilsUnir unir = new UtilsUnir();
+            portada = unir.CargarArchivos(false);
+            if (portada.Length == 0)
+            {
+                MessageBox.Show("No hay ningún archivo de portada", "ERROR!!",
+                                 MessageBoxButton.OK, MessageBoxImage.Error);
+                PortadaUnir.IsChecked = false;
+            }
+            else
+            {
+                PortadaUnirNombre.Text = System.IO.Path.GetFileName(portada[0]);
+            }
+
+        }
+
+        private void PortadaUnir_Checked(object sender, RoutedEventArgs e)
+        {
+            if ((bool)PortadaUnir.IsChecked)
+            {
+                Btn_PortadaUnir.IsEnabled = true;
+                PortadaUnirNombre.Opacity = 1;
+            }
+            else
+            {
+                Btn_PortadaUnir.IsEnabled = false;
+                PortadaUnirNombre.Opacity = 0.5;
+                PortadaUnirNombre.Text = "Ninguna portada selecionada";
             }
         }
 
-        
+        /// <summary>
+        /// DOS DIAPOSITIVAS EN UNA TAG
+        /// </summary>
+
+
+        private void Btn_agregar2DP_Click(object sender, RoutedEventArgs e)
+        {
+            string[] archivos;
+            UtilsUnir unir = new UtilsUnir();
+            archivos = unir.CargarArchivos(false);
+
+            if (archivos.Length > 0)
+            {
+                archivoUnico = new Archivo(archivos[0], false);
+                Nombre2DP.Text = "El archivo selecionado es " + System.IO.Path.GetFileName(archivoUnico.Ruta);
+            }
+        }
+
+        private void Btn_guardar2DP_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (archivoUnico.Ruta.Length != 0)
+            {
+                UtilsUnir unir = new UtilsUnir();
+                PdfDocument outputDocument = new PdfDocument();
+                outputDocument = unir.DosDiapositivasEnUna(archivoUnico.Ruta);
+                if (Guardar2DP.IsChecked == true)
+                {
+                    unir.GuardarArchivo(true, true, outputDocument);
+                }
+                else
+                {
+                    unir.GuardarArchivo(false, true, outputDocument);
+                }
+            }
+
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDFTools", "PDFTools.csproj", "{6774D523-440B-45A5-8158-2B7024766293}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6774D523-440B-45A5-8158-2B7024766293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6774D523-440B-45A5-8158-2B7024766293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6774D523-440B-45A5-8158-2B7024766293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6774D523-440B-45A5-8158-2B7024766293}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EA41C23-25BB-455E-9134-95B4C72C27E0}
+	EndGlobalSection
+EndGlobal
