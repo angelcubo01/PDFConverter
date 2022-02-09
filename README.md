@@ -1,4 +1,4 @@
-# PDFTools 
+# PDFTools ![version](https://img.shields.io/badge/version-1.2-blue)
 _Este es un pequeño proyecto para una aplicación de escritorio cuya función proporcionar herramientas de manera rápida sin necesitar conexión a Internet_
 
 ## Finalidad del proyecto 🚀
