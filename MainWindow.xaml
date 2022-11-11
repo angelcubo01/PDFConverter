@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:local="clr-namespace:PDFTools"
         mc:Ignorable="d"
-        Title="PDFTools" Height="450" Width="800" Icon="pdfTools-icon.png" >
+        Title="PDFTools" Height="450" Width="800" Icon="pdfTools-icon.png" Loaded="Window_Loaded">
     <Grid>
         <TabControl TabStripPlacement="Top">
             <TabItem Header="Unir PDFs">
@@ -93,19 +95,104 @@
                 </Grid>
                 
             </TabItem>
-            <TabItem Header="Ayuda">
-                <StackPanel VerticalAlignment="Center">
-                    <TextBlock Margin="10" HorizontalAlignment="Center" FontSize="15" >Funcionalidades </TextBlock>
-                    <TextBlock Margin="15,5"  HorizontalAlignment="Center" >UNIR PDFS --> Se suben los archivos y puedes guardarlo en local o visualizarlo temporalmente</TextBlock>
-                    <TextBlock  HorizontalAlignment="Center" >DOS DIAPOSITIVAS POR PÁGINA --> Permite unir dos diapositivas en una página</TextBlock>
-                    <TextBlock Margin="10"  HorizontalAlignment="Center" >PROXIMAMENTE MÁS FUNCIONALIDADES</TextBlock>
-                    <TextBlock Margin="0,30,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" >Para más información: angelpicadocuadrado@gmail.com</TextBlock>
-                    <TextBlock Margin="5"  HorizontalAlignment="Center" >https://descargas.angelpicado.tk</TextBlock>
-                    <TextBlock  HorizontalAlignment="Center" >Manual de uso completo proximamente</TextBlock>
-                    <TextBlock Margin="0,30,0,0"  HorizontalAlignment="Center" >Ángel Picado Cuadrado | 2022 </TextBlock>
-                </StackPanel>
-                
+            <TabItem Header="Generador de portadas">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                   
+                    <GroupBox Header="Portada" Margin="10" Grid.Row="0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label>Nombre de la asignatura: </Label>
+                                <TextBox VerticalAlignment="Center" Width="350" Name="NombreAsignatura"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label>Tu nombre y apellidos:</Label>
+                                <TextBox VerticalAlignment="Center" Width="350" Name="TuNombreApellidos"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <Label>Centro (Universidad / Instituto):</Label>
+                                <TextBox VerticalAlignment="Center" Width="350" Name="Centro"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" >
+                                <StackPanel Orientation="Horizontal" >
+                                    <Label>Curso:</Label>
+                                    <TextBox VerticalAlignment="Center" Width="100" Name="Curso"></TextBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Label>Color de la portada:</Label>
+                                    <colorpicker:PortableColorPicker Width="36" Name="ColorPortada"></colorpicker:PortableColorPicker>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" >
+                                    <Label>Color texto:</Label>
+                                    <RadioButton VerticalAlignment="Center" Width="70" Name="BlancoPortadaTexto">
+                                        Blanco 
+                                    </RadioButton>
+                                    <RadioButton VerticalAlignment="Center" IsChecked="True" Name="NegroPortadaTexto">
+                                        Negro
+                                    </RadioButton>
+                                </StackPanel>
+                                
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Margin="10" Click="ANadirPortada_Click">Agregar</Button>
+                                <Button Margin="10" Name="borrarPortadaCreada" IsEnabled="False" Click="BorrarPortadaCreada_Click">Borrar</Button>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </GroupBox>
+                    <ListView Name="ListaPortadas" Grid.Row="1" Margin="10" SelectionChanged="ListaPortadas_SelectionChanged" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Nombre Asignatura" Width="500" DisplayMemberBinding="{Binding NombreAsignatura}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button HorizontalAlignment="Center" Grid.Row="2" Click="GenerarPortadas_Click">Generar</Button>
+                </Grid>
             </TabItem>
+            <TabItem Header="Ayuda">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" HorizontalAlignment="Center">Manual extraido de Internet, puede tardar unos segundos en cargar</Label>
+                    <wv2:WebView2 Name="webView"
+                  Source="https://descargas.angelpicado.tk/windows/manualPDFTools.html" Grid.Row="1"/>
+                </Grid>
+                
+
+            </TabItem>
+			<TabItem Header="Datos predeterminados" >
+				<GroupBox Header="Tus datos" Margin="10">
+				<StackPanel>
+					
+					<StackPanel Orientation="Horizontal" >
+						<Label>Tu nombre y apellidos:</Label>
+						<TextBox VerticalAlignment="Center" Width="350" Name="TuNombreApellidosCONST"></TextBox>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" >
+						<Label>Centro (Universidad / Instituto):</Label>
+						<TextBox VerticalAlignment="Center" Width="350" Name="CentroCONST"></TextBox>
+					</StackPanel>
+					<StackPanel Orientation="Horizontal" >
+						<StackPanel Orientation="Horizontal" >
+							<Label>Curso:</Label>
+							<TextBox VerticalAlignment="Center" Width="100" Name="CursoCONST"></TextBox>
+						</StackPanel>
+						
+					</StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Click="CrearConstantes_Click">Crear</Button>
+					</StackPanel>
+					</StackPanel>
+				</GroupBox>
+			</TabItem>
         </TabControl>
        
     </Grid>

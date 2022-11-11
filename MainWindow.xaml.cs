@@ -1,6 +1,7 @@
 ﻿using PdfSharp.Pdf;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 
 namespace PDFTools
@@ -11,6 +12,7 @@ namespace PDFTools
     public partial class MainWindow : Window
     {
         private ObservableCollection<Archivo> listaArchivos;
+        private ObservableCollection<Portada> listaPortadas;
         private Archivo archivoUnico;
         public string[] portada;
         public MainWindow()
@@ -18,10 +20,36 @@ namespace PDFTools
             InitializeComponent();
             listaArchivos = new ObservableCollection<Archivo>();
             ListaUnir.ItemsSource = listaArchivos;
+            listaPortadas = new ObservableCollection<Portada>();
+            ListaPortadas.ItemsSource = listaPortadas;
 
         }
+        string ficheroDatos = @"c:\PdfTools\datos.bin";
+        string nombreApellidoGlobal = "";
+        string centroGlobal = "";
+        string cursoGlobal = "";
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(ficheroDatos))
+            {
+                StreamReader lector = new StreamReader(ficheroDatos);
 
+                nombreApellidoGlobal = lector.ReadLine();
+                TuNombreApellidos.Text = nombreApellidoGlobal;
+                TuNombreApellidosCONST.Text = nombreApellidoGlobal;
+
+                centroGlobal = lector.ReadLine();
+                Centro.Text = centroGlobal;
+                CentroCONST.Text = centroGlobal;
+
+                cursoGlobal = lector.ReadLine();
+                Curso.Text = cursoGlobal;
+                CursoCONST.Text = cursoGlobal;
+
+                lector.Close();
+            }
+        }
 
         private void Btn_agregarUnir_Click(object sender, RoutedEventArgs e) //BOTON DE CARGA DE UnirPDF
         {
@@ -181,6 +209,109 @@ namespace PDFTools
                 }
             }
 
+        }
+
+
+        /***** TERCERA FUNCIONALIDAD ***** CREAR PORTADAS*****/
+        private void ANadirPortada_Click(object sender, RoutedEventArgs e)
+        {
+            if(NombreAsignatura.Text == "" || TuNombreApellidos.Text == "" || Centro.Text == "" || Curso.Text == "")
+            {
+                MessageBox.Show("Tienes que rellenar todos los campos", "PDFTools",
+                                               MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                
+                bool negro;
+                if ((bool)NegroPortadaTexto.IsChecked) { negro = true; }
+                else { negro = false; }
+                System.Windows.Media.Color col = ColorPortada.SelectedColor;
+                listaPortadas.Add(new Portada(NombreAsignatura.Text, TuNombreApellidos.Text, Centro.Text, Curso.Text, col, negro));
+            }
+        }
+
+        private void ListaPortadas_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (ListaPortadas.SelectedValue != null)
+            {
+                borrarPortadaCreada.IsEnabled = true;
+                Portada portadaSelecionada = (Portada)ListaPortadas.SelectedValue;
+                NombreAsignatura.Text = portadaSelecionada.NombreAsignatura;
+                TuNombreApellidos.Text = portadaSelecionada.NombreApellidos;
+                Centro.Text = portadaSelecionada.Centro;
+                Curso.Text = portadaSelecionada.Curso;
+
+                ColorPortada.SelectedColor = portadaSelecionada.Color;
+                if (portadaSelecionada.EsNegro == true)
+                {
+                    NegroPortadaTexto.IsChecked = true;
+                }
+                else
+                {
+                    BlancoPortadaTexto.IsChecked = true;
+                }
+            }
+            else
+            {
+                borrarPortadaCreada.IsEnabled = false;
+            }
+            
+        }
+
+        private void BorrarPortadaCreada_Click(object sender, RoutedEventArgs e)
+        {
+            Portada portadaSelecionada = (Portada)ListaPortadas.SelectedValue;
+            listaPortadas.Remove(portadaSelecionada);
+            NombreAsignatura.Text = "";
+            TuNombreApellidos.Text = nombreApellidoGlobal;
+            Centro.Text = centroGlobal;
+            Curso.Text = cursoGlobal;
+            System.Windows.Media.Color col = System.Windows.Media.Color.FromRgb(0, 0, 0);
+            ColorPortada.SelectedColor = col;
+            NegroPortadaTexto.IsChecked = true;
+        }
+
+        private void GenerarPortadas_Click(object sender, RoutedEventArgs e)
+        {
+            if(listaPortadas.Count > 0)
+            {
+                UtilsPortadas.generarPortadas(listaPortadas);
+            }
+            else
+            {
+                MessageBox.Show("Introduce alguna portada para generar", "PDFTools",
+                                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
+        }
+
+        private void CrearConstantes_Click(object sender, RoutedEventArgs e)
+        {
+            if (!File.Exists(ficheroDatos))
+            {
+                string directorio = @"c:\PdfTools";
+                Directory.CreateDirectory(directorio);
+            }
+            StreamWriter escritor = new StreamWriter(ficheroDatos);
+
+            escritor.WriteLine(TuNombreApellidosCONST.Text);
+            nombreApellidoGlobal = TuNombreApellidosCONST.Text;
+            TuNombreApellidos.Text = nombreApellidoGlobal;
+
+            escritor.WriteLine(CentroCONST.Text);
+            centroGlobal = CentroCONST.Text;
+            Centro.Text = centroGlobal;
+
+            escritor.WriteLine(CursoCONST.Text);
+            cursoGlobal = CursoCONST.Text;
+            Curso.Text = cursoGlobal;
+            
+
+            escritor.Close();
+
+            MessageBox.Show("Se ha creado los datos predeterminados correctamente", "PDFTools",
+                                              MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         

@@ -45,6 +45,10 @@ namespace PDFTools
         /// <returns></returns>
         public string GuardarArchivo(bool permanente, bool abrir, PdfDocument documento)
         {
+            if (documento == null)
+            {
+                System.Diagnostics.Process.Start("./pdfError.pdf");
+            }
             if (permanente)
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog();

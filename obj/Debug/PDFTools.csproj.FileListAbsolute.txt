@@ -47,3 +47,15 @@ C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools.TrustInfo.xml
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools.exe.manifest
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools.application
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools.csproj.CopyComplete
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\ColorPicker.dll
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Web.WebView2.Core.dll
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Web.WebView2.Core.xml
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools_Content.g.cs
