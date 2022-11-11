@@ -1,11 +1,11 @@
-# PDFTools ![version](https://img.shields.io/badge/version-1.3.0.4-blue)
+# PDFTools ![version](https://img.shields.io/badge/version-1.4.0.0-blue)
 _Este es un pequeño proyecto para una aplicación de escritorio cuya función proporcionar herramientas de manera rápida sin necesitar conexión a Internet_ 
 
 ## Caracteristicas del proyecto 🚀
 
  * **Fusionar archivos:** El programa proporciona una pequeña interfaz para unir dos o más archivos creando un único fichero, el programa abre una ventana de carga de los archivos, se pueden cargar y ordenar según la preferencia del usuario. Permite guardar el archivo o generar un fichero temporal solo para la visualización.
  * **Dos diapositivas en una página:** Normalmente si necesitamos imprimir diapositivas no imprimimos una diapositiva por página porque es ineficiente, con esta función puedes hacer que en cada página haya dos diapositivas facilmente sin necesidad de tocar la configuración de la impresora.
- 
+* **Generador de portadas:** Esta funcionalidad crea tantas portadas como se le añadan, si existen usa los datos predeterminados en los campos de Nombre y apellidos, Centro y Curso. Se puede selecionar el color de la letra de la portada y tambien el color del fondo. El archivo que se genera tiene el nombre de la asignatura.
  Estas son las principales funciones de la aplicación aunque hay nuevas en desarrollo
 
 ### Pre-requisitos 📋
