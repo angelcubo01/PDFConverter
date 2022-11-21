@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="PDFTools" Height="450" Width="800" Icon="pdfTools-icon.png" Loaded="Window_Loaded">
     <Grid>
-        <TabControl TabStripPlacement="Top">
+        <TabControl TabStripPlacement="Top" Name="TabControl" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Unir PDFs">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -161,14 +161,15 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" HorizontalAlignment="Center">Manual extraido de Internet, puede tardar unos segundos en cargar</Label>
+                    <Label Grid.Row="0" HorizontalAlignment="Center" Name="AyudaLabel">Manual extraido de Internet, puede tardar unos segundos en cargar</Label>
                     <wv2:WebView2 Name="webView"
                   Source="https://descargas.angelpicado.tk/windows/manualPDFTools.html" Grid.Row="1"/>
                 </Grid>
                 
 
             </TabItem>
-			<TabItem Header="Datos predeterminados" >
+           
+            <TabItem Header="Datos predeterminados" >
 				<GroupBox Header="Tus datos" Margin="10">
 				<StackPanel>
 					

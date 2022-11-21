@@ -47,7 +47,7 @@ namespace PDFTools
         {
             if (documento == null)
             {
-                System.Diagnostics.Process.Start("./pdfError.pdf");
+                return "null";
             }
             if (permanente)
             {
@@ -107,7 +107,7 @@ namespace PDFTools
             }
             catch
             {
-                MessageBox.Show("Algún archivo no se puede leer porque está cifrado o protegido, la aplicación se cierra", "PDFTools",
+                MessageBox.Show("Algún archivo no se puede leer porque está cifrado o protegido", "PDFTools",
                                                 MessageBoxButton.OK, MessageBoxImage.Error);
 
                 return null;
@@ -127,44 +127,54 @@ namespace PDFTools
 
             XGraphics gfx;
             XRect box;
-
-          
-            XPdfForm form = XPdfForm.FromFile(ruta);
-
-            for (int idx = 0; idx < form.PageCount; idx += 2)
+            try
             {
-             
-                PdfPage page = outputDocument.AddPage();
-                page.Orientation = PageOrientation.Portrait;
-                double width = page.Width;
-                double height = page.Height;
+                XPdfForm form = XPdfForm.FromFile(ruta);
 
-                int rotate = page.Elements.GetInteger("/Rotate");
-
-                gfx = XGraphics.FromPdfPage(page);
-
-       
-                form.PageNumber = idx + 1;
-
-                box = new XRect(30, 30, width - 60, (height / 2) - 60);
-              
-                gfx.DrawImage(form, box);
-
-
-
-                if (idx + 1 < form.PageCount)
+                for (int idx = 0; idx < form.PageCount; idx += 2)
                 {
-              
-                    form.PageNumber = idx + 2;
 
-                    box = new XRect(30, (height / 2) + 30, width - 60, (height / 2) - 60);
-           
+                    PdfPage page = outputDocument.AddPage();
+                    page.Orientation = PageOrientation.Portrait;
+                    double width = page.Width;
+                    double height = page.Height;
+
+                    int rotate = page.Elements.GetInteger("/Rotate");
+
+                    gfx = XGraphics.FromPdfPage(page);
+
+
+                    form.PageNumber = idx + 1;
+
+                    box = new XRect(30, 30, width - 60, (height / 2) - 60);
+
                     gfx.DrawImage(form, box);
 
 
+
+                    if (idx + 1 < form.PageCount)
+                    {
+
+                        form.PageNumber = idx + 2;
+
+                        box = new XRect(30, (height / 2) + 30, width - 60, (height / 2) - 60);
+
+                        gfx.DrawImage(form, box);
+
+
+                    }
                 }
+                return outputDocument;
             }
-            return outputDocument;
+            catch
+            {
+                MessageBox.Show("Algún archivo no se puede leer porque está cifrado o protegido", "PDFTools",
+                                                MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return null;
+            }
+          
+
         }
     }
 }

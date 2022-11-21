@@ -14,6 +14,10 @@ namespace PDFTools
 {
     class UtilsPortadas
     {
+        /// <summary>
+        /// Genera los ficheros a partir de una lista de portadas, cada una con sus datos
+        /// </summary>
+        /// <param name="listaPortadas"></param>
         internal static void generarPortadas(ObservableCollection<Portada> listaPortadas)
         {
             FolderBrowserDialog carpetaDestino = new FolderBrowserDialog();
@@ -54,11 +58,11 @@ namespace PDFTools
                         brocha = XBrushes.White;
                     }
                    
-                    XRect rectanguloTitulo = new XRect(paginaEnCmAncho*8,paginaEnCmAlto*8,paginaEnCmAncho*12, 0);
+                    XRect rectanguloTitulo = new XRect(paginaEnCmAncho*8,paginaEnCmAlto*10,paginaEnCmAncho*12, 0);
                     gfx.DrawString(port.NombreAsignatura, font, brocha, rectanguloTitulo);
 
-                    XFont font2 = new XFont("Arial", 14);
-                    XRect rectanguloNombre = new XRect(paginaEnCmAncho*8,paginaEnCmAlto*18,paginaEnCmAncho*12, 0);
+                    XFont font2 = new XFont("Times New Roman", 14);
+                    XRect rectanguloNombre = new XRect(paginaEnCmAncho*8,paginaEnCmAlto*19,paginaEnCmAncho*12, 0);
                     gfx.DrawString(port.NombreApellidos, font2, brocha, rectanguloNombre);
 
                     string centroCurso = port.Centro + " | " + port.Curso;

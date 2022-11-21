@@ -1,4 +1,5 @@
 ﻿using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -115,28 +116,37 @@ namespace PDFTools
             PdfDocument outputDocument = new PdfDocument();
             outputDocument = unir.UnirPDF(rutas);
             ruta_archTemp = unir.GuardarArchivo(false, false, outputDocument);
-            if ((bool)DiapositivasUnir.IsChecked)
+            if (ruta_archTemp.Equals("null"))
             {
-                outputDocument = unir.DosDiapositivasEnUna(ruta_archTemp);
-                ruta_archTemp = unir.GuardarArchivo(false, false, outputDocument);
-            }
-            if ((bool)PortadaUnir.IsChecked)
-            {
-                if (portada != null)
-                {
-                    rutas.Clear();
-                    rutas.Add(portada[0]);
-                    rutas.Add(ruta_archTemp);
-                    outputDocument = unir.UnirPDF(rutas);
-                }
-            }
-            if (GuardarUnir.IsChecked == true)
-            {
-                unir.GuardarArchivo(true, true, outputDocument);
+                TabControl.SelectedIndex = 3; //La pagina de ayuda
+                AyudaLabel.Content = "Si se ha producido algun error usa ILovePDF";
+                webView.Source = new Uri("https://ilovepdf.com");
             }
             else
             {
-                unir.GuardarArchivo(false, true, outputDocument);
+                if ((bool)DiapositivasUnir.IsChecked)
+                {
+                    outputDocument = unir.DosDiapositivasEnUna(ruta_archTemp);
+                    ruta_archTemp = unir.GuardarArchivo(false, false, outputDocument);
+                }
+                if ((bool)PortadaUnir.IsChecked)
+                {
+                    if (portada != null)
+                    {
+                        rutas.Clear();
+                        rutas.Add(portada[0]);
+                        rutas.Add(ruta_archTemp);
+                        outputDocument = unir.UnirPDF(rutas);
+                    }
+                }
+                if (GuardarUnir.IsChecked == true)
+                {
+                    unir.GuardarArchivo(true, true, outputDocument);
+                }
+                else
+                {
+                    unir.GuardarArchivo(false, true, outputDocument);
+                }
             }
             listaArchivos.Clear();
             PortadaUnir.IsChecked = false;
@@ -199,21 +209,31 @@ namespace PDFTools
                 UtilsUnir unir = new UtilsUnir();
                 PdfDocument outputDocument = new PdfDocument();
                 outputDocument = unir.DosDiapositivasEnUna(archivoUnico.Ruta);
-                if (Guardar2DP.IsChecked == true)
+                if (outputDocument == null)
                 {
-                    unir.GuardarArchivo(true, true, outputDocument);
+                    TabControl.SelectedIndex = 3; //La pagina de ayuda
+                    AyudaLabel.Content = "Si se ha producido algun error usa ILovePDF";
+                    webView.Source = new Uri("https://ilovepdf.com");
                 }
                 else
                 {
-                    unir.GuardarArchivo(false, true, outputDocument);
+                    if (Guardar2DP.IsChecked == true)
+                    {
+                        unir.GuardarArchivo(true, true, outputDocument);
+                    }
+                    else
+                    {
+                        unir.GuardarArchivo(false, true, outputDocument);
+                    }
                 }
+                
             }
 
         }
 
 
         /***** TERCERA FUNCIONALIDAD ***** CREAR PORTADAS*****/
-        private void ANadirPortada_Click(object sender, RoutedEventArgs e)
+        private void ANadirPortada_Click(object sender, RoutedEventArgs e) //Se ha pulsado en añadir Portada
         {
             if(NombreAsignatura.Text == "" || TuNombreApellidos.Text == "" || Centro.Text == "" || Curso.Text == "")
             {
@@ -231,7 +251,7 @@ namespace PDFTools
             }
         }
 
-        private void ListaPortadas_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void ListaPortadas_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) //Si se ha pulsado alguna portada en una lista
         {
             if (ListaPortadas.SelectedValue != null)
             {
@@ -259,7 +279,7 @@ namespace PDFTools
             
         }
 
-        private void BorrarPortadaCreada_Click(object sender, RoutedEventArgs e)
+        private void BorrarPortadaCreada_Click(object sender, RoutedEventArgs e)  //Si quieres borrar una portada
         {
             Portada portadaSelecionada = (Portada)ListaPortadas.SelectedValue;
             listaPortadas.Remove(portadaSelecionada);
@@ -272,7 +292,7 @@ namespace PDFTools
             NegroPortadaTexto.IsChecked = true;
         }
 
-        private void GenerarPortadas_Click(object sender, RoutedEventArgs e)
+        private void GenerarPortadas_Click(object sender, RoutedEventArgs e)  //Si has pulsado en generar portada
         {
             if(listaPortadas.Count > 0)
             {
@@ -286,6 +306,7 @@ namespace PDFTools
            
         }
 
+        /***** CUARTA FUNCIONALIDAD ***** CONSTANTES DEL PROGRAMA*****/
         private void CrearConstantes_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(ficheroDatos))
@@ -314,6 +335,15 @@ namespace PDFTools
                                               MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        
+
+        //CAMBIA SELECCION DEL TAB
+        private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if(TabControl.SelectedIndex != 3)
+            {
+                AyudaLabel.Content = "Manual extraido de Internet, puede tardar unos segundos en cargar";
+                webView.Source = new Uri("https://descargas.angelpicado.tk/windows/manualPDFTools.html");
+            }
+        }
     }
 }
