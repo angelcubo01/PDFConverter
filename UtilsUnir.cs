@@ -84,34 +84,24 @@ namespace PDFTools
         /// <returns></returns>
         public PdfDocument UnirPDF(List<String> rutas)
         {
-            try
-            {
+            
                 PdfDocument outputDocument = new PdfDocument();
                 foreach (string file in rutas)
                 {
-                    
-
-                    PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Modify);
+                    PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import);
                    
                     int count = inputDocument.PageCount;
                     for (int idx = 0; idx < count; idx++)
                     {
-                       
+
                         PdfPage page = inputDocument.Pages[idx];
-                       
+
                         outputDocument.AddPage(page);
                     }
-
                 }
                 return outputDocument;
-            }
-            catch
-            {
-                MessageBox.Show("Algún archivo no se puede leer porque está cifrado o protegido", "PDFTools",
-                                                MessageBoxButton.OK, MessageBoxImage.Error);
-
-                return null;
-            }
+            
+            
 
         }
         /// <summary>
@@ -127,8 +117,7 @@ namespace PDFTools
 
             XGraphics gfx;
             XRect box;
-            try
-            {
+           
                 XPdfForm form = XPdfForm.FromFile(ruta);
 
                 for (int idx = 0; idx < form.PageCount; idx += 2)
@@ -166,15 +155,7 @@ namespace PDFTools
                 }
                 return outputDocument;
             }
-            catch
-            {
-                MessageBox.Show("Algún archivo no se puede leer porque está cifrado o protegido", "PDFTools",
-                                                MessageBoxButton.OK, MessageBoxImage.Error);
-
-                return null;
-            }
-          
-
-        }
+        
+       
     }
 }

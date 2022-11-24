@@ -32,12 +32,7 @@ C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PDFTools.exe.manifest
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PDFTools.application
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PDFTools.exe
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PDFTools.pdb
-C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PdfSharp.Charting.dll
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PdfSharp.dll
-C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PdfSharp.xml
-C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\PdfSharp.Charting.xml
-C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\de\PdfSharp.resources.dll
-C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\bin\Debug\de\PdfSharp.Charting.resources.dll
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\MainWindow.baml
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools.g.resources
 C:\Users\angel\Desktop\CLASE\Proyectos\PDFTools\obj\Debug\PDFTools.Properties.Resources.resources

@@ -9,7 +9,7 @@ using System.Windows;
 [assembly: AssemblyTitle("PDFTools")]
 [assembly: AssemblyDescription("Herramientas para la gestión PDF")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Ángel Picado Cuadrado")]
+[assembly: AssemblyCompany("PDFTools")]
 [assembly: AssemblyProduct("PDFTools")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("Ángel Picado Cuadrado")]

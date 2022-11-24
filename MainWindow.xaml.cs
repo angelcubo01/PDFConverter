@@ -30,7 +30,7 @@ namespace PDFTools
         string centroGlobal = "";
         string cursoGlobal = "";
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e) //Lee si hay algun dato global
         {
             if (File.Exists(ficheroDatos))
             {
@@ -116,14 +116,7 @@ namespace PDFTools
             PdfDocument outputDocument = new PdfDocument();
             outputDocument = unir.UnirPDF(rutas);
             ruta_archTemp = unir.GuardarArchivo(false, false, outputDocument);
-            if (ruta_archTemp.Equals("null"))
-            {
-                TabControl.SelectedIndex = 3; //La pagina de ayuda
-                AyudaLabel.Content = "Si se ha producido algun error usa ILovePDF";
-                webView.Source = new Uri("https://ilovepdf.com");
-            }
-            else
-            {
+            
                 if ((bool)DiapositivasUnir.IsChecked)
                 {
                     outputDocument = unir.DosDiapositivasEnUna(ruta_archTemp);
@@ -147,7 +140,7 @@ namespace PDFTools
                 {
                     unir.GuardarArchivo(false, true, outputDocument);
                 }
-            }
+            
             listaArchivos.Clear();
             PortadaUnir.IsChecked = false;
             DiapositivasUnir.IsChecked = false;
@@ -209,14 +202,8 @@ namespace PDFTools
                 UtilsUnir unir = new UtilsUnir();
                 PdfDocument outputDocument = new PdfDocument();
                 outputDocument = unir.DosDiapositivasEnUna(archivoUnico.Ruta);
-                if (outputDocument == null)
-                {
-                    TabControl.SelectedIndex = 3; //La pagina de ayuda
-                    AyudaLabel.Content = "Si se ha producido algun error usa ILovePDF";
-                    webView.Source = new Uri("https://ilovepdf.com");
-                }
-                else
-                {
+              
+               
                     if (Guardar2DP.IsChecked == true)
                     {
                         unir.GuardarArchivo(true, true, outputDocument);
@@ -225,7 +212,7 @@ namespace PDFTools
                     {
                         unir.GuardarArchivo(false, true, outputDocument);
                     }
-                }
+                
                 
             }
 
@@ -335,15 +322,5 @@ namespace PDFTools
                                               MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-
-        //CAMBIA SELECCION DEL TAB
-        private void TabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if(TabControl.SelectedIndex != 3)
-            {
-                AyudaLabel.Content = "Manual extraido de Internet, puede tardar unos segundos en cargar";
-                webView.Source = new Uri("https://descargas.angelpicado.tk/windows/manualPDFTools.html");
-            }
-        }
     }
 }
