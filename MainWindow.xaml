@@ -196,7 +196,7 @@
                             <Button Click="CrearConstantes_Click">Crear</Button>
 					</StackPanel>
                         <GroupBox Header="Autor">
-                            <TextBlock TextWrapping="Wrap" Margin="4">Creado por Ángel Picado Cuadrado | Diseñada e implementada en 2022 | version 1.6.0.0<LineBreak></LineBreak>En caso de cualquier fallo o recomendación escribir un correo a angelpicadocuadrado@gmail.com</TextBlock>
+                            <TextBlock TextWrapping="Wrap" Margin="4">Creado por Ángel Picado Cuadrado | Diseñada e implementada en 2022 | version 1.6<LineBreak></LineBreak>En caso de cualquier fallo o recomendación escribir un correo a angelpicadocuadrado@gmail.com</TextBlock>
                         </GroupBox>
 					</StackPanel>
 				</GroupBox>
